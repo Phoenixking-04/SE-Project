@@ -45,6 +45,7 @@ SE_PROJECT
         Meeting notes
         Action items
 
+
 4. Project Documents
         This directory is intended for any general documentation related to the project. It might include:
         Technical specifications
