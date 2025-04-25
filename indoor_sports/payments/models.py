@@ -9,7 +9,7 @@ class Payment(models.Model):
         ('Pending', 'Pending'),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments')
-    booking = models.ForeignKey('bookings.Booking', on_delete=models.CASCADE, related_name='payments', default=1)  # Add default value
+    #booking = models.ForeignKey('bookings.Booking', on_delete=models.CASCADE, related_name='payments', default=1)  # Add default value
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_method = models.CharField(max_length=20, blank=True, null=True)  # Examples: Credit Card, PayPal
     payment_date = models.DateTimeField(auto_now_add=True)
