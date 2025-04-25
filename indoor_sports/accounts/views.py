@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -116,6 +115,3 @@ def password_reset_confirm(request, token):
             messages.error(request, "Passwords do not match.")
 
     return render(request, "password_reset_confirm.html", {"token": token})
-
-
-

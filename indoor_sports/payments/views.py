@@ -17,7 +17,11 @@ from notifications.models import Notification
 from django.utils.timezone import now
 from decimal import Decimal
 from datetime import datetime, timezone
+from datetime import timedelta, datetime
+
 from django.utils.timezone import make_aware
+
+
 
 # Set Stripe API key
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -262,6 +266,7 @@ def payments_page(request, booking_id):
     })
 
 
+
 def admin_view_payments(request):
     """
     Admin view to display all payments and calculate refund eligibility.
@@ -381,4 +386,3 @@ def process_refund(request, id):
         messages.error(request, "Refund not possible for this payment.")
 
     return redirect('admin_view_payments')
-

@@ -1,16 +1,24 @@
+
 {% extends 'base_admin.html' %}
 
 {% block title %}Admin Dashboard{% endblock %}
 
 {% block content %}
-<body>
- 
-<div class="card">
-<h2>Add New Users</h2>
-<a href="{% url 'invite_user' %}"class="redirect-button">Go to inviation link Page</a>
-</div>
- 
-</body>
-</html>
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2>Welcome to Sports Booking Platform</h2>
+        <p class="lead">Admin Dashboard</p>
+    </div>
 
- 
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">Add New Users</h3>
+                    <a href="{% url 'invite_user' %}" class="btn btn-primary">Go to Invitation Link Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

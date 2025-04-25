@@ -70,7 +70,7 @@ def admin_dashboard(request):
         messages.error(request, "Admin not found. Please log in again.")
         return redirect("loginpage")
 
-    return render(request, "admin_dashboard.html", {"last_login": admin.lastlogin})
+    return render(request, "admin_dashboard.html", {"last_login": admin.last_login})
 
 
 def is_role_valid(request, expected_role):
@@ -136,8 +136,6 @@ def home(request):
     })
 
 
-
-
 @ login_required
 def edit_profile(request):
     user = request.user
@@ -149,6 +147,7 @@ def edit_profile(request):
         return redirect('user_dashboard')
 
     return render(request, 'edit_profile.html', {'user': user})
+
 
 
 
@@ -222,6 +221,7 @@ def add_slot(request):
     # Your logic to add a slot
     return render(request, 'add_slot.html')
 
+
 def list_events(request):
     events = Event.objects.all()
     return render(request, 'list_events.html', {'events': events})
@@ -251,6 +251,7 @@ def delete_event(request, event_id):
         return redirect('list_events')
     return render(request, 'delete_event.html', {'event': event})
 
+
 #sports
 def view_sports(request):
     """
@@ -258,7 +259,7 @@ def view_sports(request):
     """
     sports = Sport.objects.all()  # Retrieve all sports
     return render(request, 'view_sports.html', {'sports': sports})
- 
+
 def add_sport(request):
     """
     Handles adding a new sport with complete information.
@@ -275,9 +276,9 @@ def add_sport(request):
         peak_hours_start = request.POST.get('peak_hours_start')
         peak_hours_end = request.POST.get('peak_hours_end')
         available = request.POST.get('available')
- 
+
         location = Location.objects.get(location_id=location_id)  # Fetch location instance
- 
+
         # Create the sport with all fields
         Sport.objects.create(
             name=name,
@@ -292,13 +293,13 @@ def add_sport(request):
             available=available,
         )
         return redirect('view_sports')
- 
+
     return render(request, 'add_sport.html', {'locations': locations})
- 
- 
- 
- 
- 
+
+
+
+
+
 def del_sport(request, sport_id):
     """
     Handles fetching sport details and confirmation before deletion.
@@ -306,21 +307,21 @@ def del_sport(request, sport_id):
     # Fetch the sport instance using sport_id
     sport = get_object_or_404(Sport, sport_id=sport_id)
     locations = Location.objects.all()  # Fetch all locations for the dropdown, if needed
- 
+
     if request.method == 'POST':  # Confirm deletion
         sport.delete()  # Delete the sport
         return redirect('view_sports')  # Redirect after deletion
- 
+
     # Render the confirmation page with sport details auto-populated
     return render(request, 'del_sport.html', {'sport': sport, 'locations': locations})
- 
- 
- 
+
+
+
 def update_sport(request, sport_id):
     """Fetch and populate sport details in the update form for editing."""
     sport = get_object_or_404(Sport, sport_id=sport_id)
     locations = Location.objects.all()  # Fetch all locations for dropdown
- 
+
     if request.method == 'POST':
         sport.name = request.POST.get('name', sport.name)
         sport.category = request.POST.get('category', sport.category)
@@ -332,8 +333,8 @@ def update_sport(request, sport_id):
         sport.peak_hours_end = request.POST.get('peak_hours_end', sport.peak_hours_end)
         sport.available = request.POST.get('available', sport.available)
         sport.location_id = request.POST.get('location_id', sport.location_id)
- 
+
         sport.save()
         return redirect('view_sports')  # Redirect to sports list after update
- 
+
     return render(request, 'update_sport.html', {'sport': sport, 'locations': locations})

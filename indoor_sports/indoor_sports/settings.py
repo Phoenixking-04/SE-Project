@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',  # REST framework
     'accounts',
     'bookings',
     'dashboards',
@@ -39,6 +38,8 @@ INSTALLED_APPS = [
     'ratings',
     'registration',
     'reports',
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -49,7 +50,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'indoor_sports.urls'
@@ -103,7 +103,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files configuration
 MEDIA_URL = '/media/'
@@ -164,7 +163,6 @@ SESSION_SAVE_EVERY_REQUEST = True
 #     },
 # }
 
-
 # Custom user model
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -174,3 +172,4 @@ STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_WEEKLY_PRICE = os.getenv("STRIPE_WEEKLY_PRICE", "price_1R8pYGAzH5PP5Ex8N9IIAL5c")
 STRIPE_MONTHLY_PRICE = os.getenv("STRIPE_MONTHLY_PRICE", "price_1R8pNjAzH5PP5Ex8msvzQvUp")
 STRIPE_YEARLY_PRICE = os.getenv("STRIPE_YEARLY_PRICE", "price_1R8pZFAzH5PP5Ex8gFOuqKB0")
+

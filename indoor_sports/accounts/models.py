@@ -58,7 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     zip_code = models.CharField(max_length=10)
     gender = models.CharField(max_length=10)
     createdat = models.DateField(auto_now_add=True)
-    lastlogin = models.DateTimeField(auto_now=True)  # Used by Django authentication system
+    last_login = models.DateTimeField(auto_now=True)  # Used by Django authentication system
     status = models.CharField(max_length=10, default='active')
     subscription = models.CharField(max_length=50, default="unsubscribed")
     referral_points = models.IntegerField(default=0)
@@ -161,7 +161,7 @@ class Admin(AbstractBaseUser, PermissionsMixin):
     createdat = models.DateField(auto_now_add=True)
     
     # Custom lastlogin field
-    lastlogin = models.DateTimeField(auto_now=True)
+    last_login = models.DateTimeField(auto_now=True)
     last_login = models.DateTimeField(auto_now=True)
 
     status = models.CharField(max_length=10, default='active')

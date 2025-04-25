@@ -1,22 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Payments</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-    <header>
-        <h1>My Payments</h1>
-    </header>
-    <main>
-        <ul>
-            {% for payment in payments %}
-                <li>Payment ID: {{ payment.id }} - Amount: {{ payment.amount }} - Method: {{ payment.payment_method }} - Status: {{ payment.payment_status }} - Date: {{ payment.payment_date }}</li>
-            {% endfor %}
-        </ul>
-    </main>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+Payments
+{% endblock %}
+
+{% block content %}
+    <h2>Payments</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Payment Status</th>
+                <th>Booking Status</th>
+                <th>Slot Date</th>
+                <th>Slot Time</th>
+                <th>Refund Eligibility</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="payments-table-body">
+            <!-- Payment rows will be dynamically populated using JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fetch payments data from the API
+        fetch('/get_payments/')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('payments-table-body');
+                data.forEach(payment => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${payment.ID}</td>
+                        <td>${payment.Amount}</td>
+                        <td>${payment.PaymentMethod}</td>
+                        <td>${payment.PaymentStatus}</td>
+                        <td>${payment.BookingStatus}</td>
+                        <td>${payment.SlotDate}</td>
+                        <td>${payment.SlotTime}</td>
+                        <td>${payment.RefundEligible ? 'Yes' : 'No'}</td>
+                        <td>
+                            <button onclick="processRefund(${payment.ID})" ${payment.RefundEligible ? '' : 'disabled'}>Process Refund</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+
+        // Refund processing logic
+        function processRefund(paymentId) {
+            fetch(`/process_refund/${paymentId}/`, {
+                method: 'POST'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    location.reload(); // Refresh page to update payment statuses
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+{% endblock %}

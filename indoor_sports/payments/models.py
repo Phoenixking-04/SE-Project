@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import User
 
 class Payment(models.Model):
+    id = models.BigAutoField(primary_key=True)
     PAYMENT_STATUS_CHOICES = [
         ('Success', 'Success'),
         ('Failed', 'Failed'),
@@ -19,6 +20,7 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"Payment {self.id} - {self.payment_status}"
+    
 
 from django.db import models
 

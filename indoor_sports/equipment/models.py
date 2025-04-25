@@ -13,8 +13,9 @@ class Equipment(models.Model):
 
 
 
-    def _str_(self):
+    def __str__(self):
         return self.name
+
 
 class Rental(models.Model):
     RENTAL_STATUS_CHOICES = [

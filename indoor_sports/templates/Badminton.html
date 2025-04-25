@@ -51,7 +51,7 @@
         <!-- Reviews Section -->
         <div class="section-title">Reviews & Ratings</div>
         <div class="reviews">
-            <a href="{% url 'reviews' sport.sport_id %}" class="reviews-button">Go to Reviews</a>
+            <a href="{% url 'reviews_by_location' location.location_id sport.sport_id %}" class="reviews-button">Go to Reviews</a>
         </div>
     </div>
 {% endblock %}
