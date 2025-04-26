@@ -73,15 +73,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'indoor_sports.wsgi.application'
 
-# Database configuration using MySQL
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),  # Replace 'localhost' with your remote host
-        'PORT': os.getenv('DB_PORT', '3306'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT', '5432'),  # PostgreSQL default port
         'OPTIONS': {
             'charset': 'utf8mb4',
         },
