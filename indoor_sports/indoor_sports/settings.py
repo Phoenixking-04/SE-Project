@@ -78,14 +78,13 @@ WSGI_APPLICATION = 'indoor_sports.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'indoor_sports'),
-        'USER': os.getenv('DB_USER', 'root'),
-        'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),  # Replace 'localhost' with your remote host
         'PORT': os.getenv('DB_PORT', '3306'),
-        'CONN_MAX_AGE': 600,  # Persistent connections
         'OPTIONS': {
-            'charset': 'utf8mb4',  # Ensure correct encoding
+            'charset': 'utf8mb4',
         },
     }
 }
