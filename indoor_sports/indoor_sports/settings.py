@@ -71,7 +71,6 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'indoor_sports.wsgi.application'
 
 # Database configuration using MySQL
