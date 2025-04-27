@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',  # REST framework
+    'rest_framework', 
     'accounts',
     'bookings',
     'dashboards',
@@ -134,45 +134,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 86400  # 1 day (in seconds)
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-SESSION_COOKIE_SECURE = False  # Should be True in production
+SESSION_COOKIE_SECURE = True  # Should be True in production
 SESSION_SAVE_EVERY_REQUEST = True
-
-# # Logging configuration
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'verbose': {
-#             'format': '{levelname} {asctime} {name} {message}',
-#             'style': '{',
-#         },
-#         'simple': {
-#             'format': '{levelname} {message}',
-#             'style': '{',
-#         },
-#     },
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': str(BASE_DIR / 'debug.log'),
-#             'formatter': 'verbose',
-#         },
-#         'console': {
-#             'class': 'logging.StreamHandler',
-#             'level': 'DEBUG',
-#             'formatter': 'verbose',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['console', 'file'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }
-
 
 # Custom user model
 AUTH_USER_MODEL = 'accounts.User' 
@@ -180,6 +143,6 @@ AUTH_USER_MODEL = 'accounts.User'
 STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 
-STRIPE_WEEKLY_PRICE = os.getenv("STRIPE_WEEKLY_PRICE", "price_1RHqlGAzH5PP5Ex8P6WV6oDL")
-STRIPE_MONTHLY_PRICE = os.getenv("STRIPE_MONTHLY_PRICE", "price_1RHqnDAzH5PP5Ex8twjG11UO")
-STRIPE_YEARLY_PRICE = os.getenv("STRIPE_YEARLY_PRICE", "price_1RHqoeAzH5PP5Ex8ocPRHHtU")
+STRIPE_WEEKLY_PRICE = os.getenv("STRIPE_WEEKLY_PRICE")
+STRIPE_MONTHLY_PRICE = os.getenv("STRIPE_MONTHLY_PRICE")
+STRIPE_YEARLY_PRICE = os.getenv("STRIPE_YEARLY_PRICE")
