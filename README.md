@@ -41,7 +41,7 @@ SE_PROJECT/
 │       ├── ...                   # Same structure as accounts, focusing on user registrations
 ├── migrations                    # Database migration files
 ├── templates/                    # HTML templates for rendering user account pages
-├── static/                       # Static files (CSS, JavaScript, images) related to accounts
+├── staticfiles/                       # Static files (CSS, JavaScript, images) related to accounts
 │   ├── css/                      # Stylesheets for user accounts
 │   ├── js/                       # JavaScript files for interactive features
 │   └── img/                      # Images used in account-related templates

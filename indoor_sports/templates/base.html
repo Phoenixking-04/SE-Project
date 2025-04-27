@@ -151,13 +151,8 @@
                 "{% static 'videos/basketball court.mp4' %}",
                 "{% static 'videos/two_players_tennis.mp4' %}",
                 "{% static 'videos/basketball_game.mp4' %}",
-                
                 "{% static 'videos/court_action.mp4' %}",
-                
-                
-                
-                
-                "{% static 'videos/basketball.mp4' %}",
+                "{% static 'videos/basketball_spin.mp4' %}",
                 "{% static 'videos/volleyball.mp4' %}"
             ];
             
@@ -168,7 +163,7 @@
                     bgVideo.src = videoSources[randomIndex];
                     bgVideo.load();
                     bgVideo.play();
-                }, 5000);
+                }, 3000);
             } else {
                 console.error("Background video element not found.");
             }
