@@ -107,9 +107,9 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files configuration
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = '/static/'  # URL to serve static files
+STATICFILES_DIRS = [BASE_DIR / "static"]  # Custom static files source
+STATIC_ROOT = BASE_DIR / "staticfiles"  # Destination for collected static files
 
 
 # Media files configuration
