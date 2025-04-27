@@ -17,7 +17,7 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 SECRET_KEY = os.getenv('SECRET_KEY', 'your-development-secret-key')
 
 # Allowed Hosts (ensure this is configured correctly for production)
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1 localhost').split(" ")
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(" ")
 
 # Application definition
 INSTALLED_APPS = [
