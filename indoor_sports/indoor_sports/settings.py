@@ -10,13 +10,14 @@ load_dotenv()
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Debug mode for development
+# Debug mode (use environment variable for flexibility)
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-# Secret key (use environment variable for production)
+# Secret key (always use a secure value in production)
 SECRET_KEY = os.getenv('SECRET_KEY', 'your-development-secret-key')
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(" ")
+# Allowed Hosts (ensure this is configured correctly for production)
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1 localhost').split(" ")
 
 # Application definition
 INSTALLED_APPS = [
@@ -50,7 +51,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
 
 ROOT_URLCONF = 'indoor_sports.urls'
@@ -58,7 +58,7 @@ ROOT_URLCONF = 'indoor_sports.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [BASE_DIR / "templates"],  # Ensure templates folder exists
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,16 +66,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'accounts.context_processors.avatar_context',
+                'accounts.context_processors.avatar_context',  # Ensure this exists in your project
             ],
         },
     },
 ]
 
-
 WSGI_APPLICATION = 'indoor_sports.wsgi.application'
 
-# Database configuration using MySQL
+# Database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -90,7 +89,9 @@ DATABASES = {
         },
     }
 }
-DATABASES['default'] = dj_database_url.parse(os.getenv('DATABASE_URL'))
+# Override with DATABASE_URL if available
+if os.getenv('DATABASE_URL'):
+    DATABASES['default'] = dj_database_url.parse(os.getenv('DATABASE_URL'))
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -107,16 +108,13 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files configuration
-STATIC_URL = '/static/'  # URL to serve static files
-STATICFILES_DIRS = [BASE_DIR / "static"]  # Custom static files source
-STATIC_ROOT = BASE_DIR / "staticfiles"  # Destination for collected static files
-
+STATIC_URL = '/static/'  # URL for serving static files
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Directory where static files are collected
+STATICFILES_DIRS = [BASE_DIR / 'static']  # Optional, source directory for custom files
 
 # Media files configuration
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-
+MEDIA_URL = '/media/'  # URL to access media files
+MEDIA_ROOT = BASE_DIR / 'media'  # Directory for uploaded media files
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -126,23 +124,24 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'your-email@example.com')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'your-email-password')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-# Sessions configuration (use database-backed sessions)
+# Sessions configuration
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 86400  # 1 day (in seconds)
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-SESSION_COOKIE_SECURE = True  # Should be True in production
+SESSION_COOKIE_SECURE = not DEBUG  # True in production, False for development
 SESSION_SAVE_EVERY_REQUEST = True
 
 # Custom user model
-AUTH_USER_MODEL = 'accounts.User' 
+AUTH_USER_MODEL = 'accounts.User'
 
+# Stripe API keys
 STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 
-STRIPE_WEEKLY_PRICE = os.getenv("STRIPE_WEEKLY_PRICE")
-STRIPE_MONTHLY_PRICE = os.getenv("STRIPE_MONTHLY_PRICE")
-STRIPE_YEARLY_PRICE = os.getenv("STRIPE_YEARLY_PRICE")
+STRIPE_WEEKLY_PRICE = os.getenv("STRIPE_WEEKLY_PRICE", "price_weekly")
+STRIPE_MONTHLY_PRICE = os.getenv("STRIPE_MONTHLY_PRICE", "price_monthly")
+STRIPE_YEARLY_PRICE = os.getenv("STRIPE_YEARLY_PRICE", "price_yearly")

@@ -38,3 +38,5 @@ if not settings.DEBUG:
 # Serve media files when DEBUG = True
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
+ 
