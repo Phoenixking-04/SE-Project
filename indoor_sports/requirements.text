@@ -8,6 +8,7 @@ Django==5.1.5
 djangorestframework==3.16.0
 dotenv==0.9.9
 fonttools==4.56.0
+gunicorn==23.0.0
 idna==3.10
 kiwisolver==1.4.8
 matplotlib==3.10.1
