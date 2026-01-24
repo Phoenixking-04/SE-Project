@@ -121,8 +121,8 @@ def process_payment(request, booking_id):
             })
 
         except Exception as e:
-            logger.error(f"Error processing payment: {str(e)}")
-            return JsonResponse({"error": "Payment processing failed", "details": str(e)}, status=400)
+            logger.error("Error processing payment", exc_info=True)
+            return JsonResponse({"error": "Payment processing failed"}, status=400)
 
     return render(request, 'payments.html', {
         'booking': booking,
