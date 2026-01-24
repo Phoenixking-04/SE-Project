@@ -182,7 +182,11 @@ def process_card_payment(request, booking_id):
             return JsonResponse({"success": True, "client_secret": payment_intent.client_secret})
 
         except stripe.error.CardError as e:
-            return JsonResponse({"success": False, "error": str(e)}, status=400)
+            logger.exception("Stripe CardError while processing card payment for booking %s", booking_id)
+            return JsonResponse(
+                {"success": False, "error": "Your card was declined. Please try a different card or contact your bank."},
+                status=400,
+            )
 
         except stripe.error.InvalidRequestError as e:
             logger.exception("Stripe InvalidRequestError while processing card payment for booking %s", booking_id)
