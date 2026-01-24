@@ -1,7 +1,7 @@
 
 import datetime
 import json
-from venv import logger
+import logging
 import stripe
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
@@ -19,6 +19,7 @@ from decimal import Decimal
 from datetime import datetime, timezone
 from django.utils.timezone import make_aware
 
+logger = logging.getLogger(__name__)
 # Set Stripe API key
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -184,7 +185,11 @@ def process_card_payment(request, booking_id):
             return JsonResponse({"success": False, "error": str(e)}, status=400)
 
         except stripe.error.InvalidRequestError as e:
-            return JsonResponse({"success": False, "error": "Stripe request error: " + str(e)}, status=400)
+            logger.exception("Stripe InvalidRequestError while processing card payment for booking %s", booking_id)
+            return JsonResponse(
+                {"success": False, "error": "An error occurred while processing the payment. Please try again later."},
+                status=400,
+            )
 
     return JsonResponse({"error": "Invalid request method"}, status=400)
 
